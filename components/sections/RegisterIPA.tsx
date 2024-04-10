@@ -37,7 +37,7 @@ export default function RegisterIPA() {
     const ipfsUri = await uploadJSONToIPFS(formData);
 
     const tokenId = await mintNFT(walletAddress as Address, ipfsUri);
-    registerExistingNFT(tokenId, "0xe8E8dd120b067ba86cf82B711cC4Ca9F22C89EDc");
+    registerExistingNFT(tokenId, "0x83DD606d14CcEb629dE9Bf8Aad7aE63767dB476f");
   };
 
   const registerExistingNFT = async (
@@ -47,10 +47,9 @@ export default function RegisterIPA() {
     if (!client) return;
     setTxLoading(true);
     setTxName("Registering an NFT as an IP Asset...");
-    const response = await client.ipAsset.registerRootIp({
-      tokenContractAddress,
+    const response = await client.ipAsset.register({
+      tokenContract: tokenContractAddress,
       tokenId,
-      ipName: name,
       txOptions: { waitForTransaction: true, gasPrice: BigInt(10000000000) },
     });
     console.log(
